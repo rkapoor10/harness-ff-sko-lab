@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+   app: ff-app
+ name: ff-app
+spec:
+ replicas: 2
+ selector:
+   matchLabels:
+     app: ff-app
+ template:
+   metadata:
+     labels:
+       app: ff-app
+   spec:
+     containers:
+     - image: ritikharness/ff-app:latest
+       name: ff-app
+       ports:
+       - containerPort: 3007

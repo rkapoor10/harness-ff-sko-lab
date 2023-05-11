@@ -17,18 +17,38 @@
   <script src="./index_files/jquery-3.3.1.slim.min.js"></script>
   <script src="./index_files/popper.min.js"></script>
   <script src="./index_files/bootstrap.min.js"></script>
-
+  <script src="https://unpkg.com/@harnessio/ff-javascript-client-sdk/dist/sdk.client-iife.js"></script>
   <script>
     $(function() {
       var email = login();
       
       // ENTER LAB CODE HERE
+      var initialize = HarnessFFSDK.initialize
+      var Event = HarnessFFSDK.Event
+      var cf = initialize(
+        '5b6bfd59-db58-4353-ab73-21256be259d6',
+        {
+          identifier: email,
+          attributes: {
+            lastUpdated: Date(),
+            host: location.href
+          }
+        }
+      )
+
+      cf.on(Event.READY, flags => {
+        enableModules();
+      })
+
+      cf.on(Event.CHANGED, flagInfo => {
+        enableModule();
+        $('.trial').text(cf.variation('Trial_Length', false))
+      })
 
 
       // THESE FUNCTIONS ENABLE OR DISABLE EACH MODULE
-      enableModules();
       function enableModules() {
-        enableModule("builds", false);
+        enableModule("builds", cf.variation('Builds_Module', false));
         enableModule("feature-flags", true);
         enableModule("cloud-cost-management", true);
         enableModule("continuous-verification", true);
