@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp
+  name: ff-app
 spec:
   type: LoadBalancer
   ports:
@@ -31,4 +31,4 @@ spec:
     port: 80
     targetPort: 3007
   selector:
-    app: myapp
+    app: ff-app
