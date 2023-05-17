@@ -18,7 +18,7 @@ spec:
      - image: ritikharness/ff-app:latest
        name: ff-app
        ports:
-       - containerPort: 3007
+       - containerPort: 30142
 ---
 apiVersion: v1
 kind: Service
@@ -29,6 +29,8 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 3007
+    targetPort: 30142
   selector:
     app: ff-app
+
+  
